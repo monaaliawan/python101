@@ -1,0 +1,41 @@
+# Your code to create a new dictionary, net_dict (15pt)
+
+net_dict = {}
+for country in import_dict:
+  if country in export_dict:
+    net_dict[country] = export_dict[country] - import_dict[country]
+print(net_dict)
+result_q_7 = f"The net dictionary is :{net_dict}"
+print(result_q_7)
+
+
+# Your code to sort dictionary by values (25pt)
+#for descending order
+sorted_net_dict = dict(sorted(net_dict.items(), key=lambda item: item[1], reverse=True))
+result_8 = f"The sorted net dictionary in descending is :{sorted_net_dict}"
+print(result_8)
+
+# Your code to save the result (15pt)
+folder = "/content/drive/MyDrive/python/"
+f_name = "midterm_result_(your school id).txt"
+f_path = folder + f_name
+print(f_path)
+
+with open(f_path, 'w') as f:
+  f.write(' ')
+  f.write(result_q_1)
+  f.write('\n-----------------------------------------------------------------------------------------------------------------------')
+  f.write(result_q_2_a)
+  f.write('\n-----------------------------------------------------------------------------------------------------------------------')
+  f.write(result_q_2_b)
+  f.write('\n-----------------------------------------------------------------------------------------------------------------------')
+  f.write(result_q_4)
+  f.write('\n-----------------------------------------------------------------------------------------------------------------------')
+  f.write(result_q_5)
+  f.write('\n-----------------------------------------------------------------------------------------------------------------------')
+  f.write(result_q_6)
+  f.write('\n-----------------------------------------------------------------------------------------------------------------------')
+  f.write(result_q_7)
+  f.write('\n-----------------------------------------------------------------------------------------------------------------------')
+  f.write(result_q_8)
+  f.close()
