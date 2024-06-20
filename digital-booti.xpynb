@@ -1,0 +1,114 @@
+from google.colab import drive
+drive.mount('/content/drive')
+
+#for making path of file
+f_folder = "/content/drive/MyDrive/Python Practice/"
+data_file = "country_import_export_2020 .csv"
+f_path = f_folder + data_file
+print(f_path)
+
+with open(f_path, 'r') as f:
+  print(f.readlines())
+
+with open(f_path, 'r') as f:
+  content = f.readlines()
+  del content[0]
+  result_q_1 = f"The answer to question1:{content}"
+  print(result_q_1)
+
+#defining a funciton which will take country data as string and will extract its
+#for import value.
+
+def country_imports (astring):
+  country_import = astring.split(",")
+  country_import_tuple = country_import[0], float(country_import[1])
+  return country_import_tuple
+
+import_tuple_list = []
+for line in content:
+  import_tuple_list.append(country_imports(line))
+
+import_dict = {}
+for tuple in import_tuple_list:
+  if tuple[0] in import_dict:
+    import_dict[tuple[0]] += tuple[1]
+  else:
+    import_dict[tuple[0]] = tuple[1]
+    result_2_1 = f"The import dictionary is :{import_dict}"
+print(result_2_1)
+
+#for export value
+def country_exports (astring):
+  country_export = astring.split(",")
+  country_export_tuple = country_export[0], float(country_export[2])
+  return country_export_tuple
+
+export_tuple_list = []
+for line in content:
+  export_tuple_list.append(country_exports(line))
+
+  export_dict = {}
+for tuple in export_tuple_list:
+  if tuple[0] in export_dict:
+    export_dict[tuple[0]] += tuple[1]
+  else:
+    export_dict[tuple[0]] = tuple[1]
+    result_2_2 = f"The export dictionary is :{export_dict}"
+print(result_2_2)
+
+
+#for number of countries
+num_countries = len(import_dict)
+result_3_1 = f"The total number of countries are {num_countries}"
+print(result_3_1)
+
+#for min max import
+minimum = min(import_dict.values())
+min_import = "The Minimum Import is " + str(minimum)
+print(min_import)
+maximum = max(import_dict.values())
+max_import = "The Maximum Import is " + str(maximum)
+print(max_import)
+
+#for max export
+
+minimum = min(export_dict.values())
+min_export = "The Minimum Export is " + str(minimum)
+print(min_export)
+maximum = max(export_dict.values())
+max_export = "The Maximum Export is " + str(maximum)
+print(max_export)
+
+#your code to creat new dictionary, net dict
+list_net_export = []
+for key in export_dict:
+  if key in import_dict:
+    list_net_export.append(key)
+
+net_dict = {}
+for key in list_net_export:
+  net_dict[key] = export_dict[key] - import_dict[key]
+  result_4 = f"The net dictionary is :{net_dict}"
+print(result_4)
+
+
+#for descending order
+sorted_net_dict = dict(sorted(net_dict.items(), key=lambda item: item[1], reverse=True))
+result_5 = f"The sorted net dictionary in descending is :{sorted_net_dict}"
+print(result_5)
+
+#to save the result
+new_file = f_path + "midterm_result_202332032.txt"
+print(f_path)
+with open(new_file, 'w') as new_f:
+  new_f.write('  ')
+  new_f.write(result_q_1)
+  new_f.write(result_2_1)
+  new_f.write(result_2_2)
+  new_f.write(result_3_1)
+  new_f.write(result_4)
+  new_f.write(result_5)
+  new_f.close()
+
+with open(new_file, 'r') as new_f:
+  print(new_f.readlines())
